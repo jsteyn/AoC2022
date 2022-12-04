@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Day01 {
-    private static ArrayList<Integer> elveTotals = new ArrayList<>();
+    private static final ArrayList<Integer> elveTotals = new ArrayList<>();
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String filename;
         if (args.length > 0) filename = args[0];
         readData(elveTotals, "data/day01.txt");

@@ -14,24 +14,20 @@ import java.util.StringTokenizer;
  */
 public class Day02 {
 
-    private enum Played {ROCK(1), PAPER(2), SZISSORS(3);
-
-        private int value;
+    private enum Played {ROCK(1), PAPER(2), SCISSORS(3);
+        private final int value;
         Played(int value) {
             this.value = value;
         }
     }
-    private enum Result {LOSE(1), DRAW(2), WIN(2);
-        private int value;
+    private enum Result {LOSE(0), DRAW(3), WIN(6);
+        private final int value;
         Result(int value) {
             this.value = value;
         }
-
-        public int getValue() {
-            return value;
-        }
+        public int getValue() { return value; }
     }
-    private static ArrayList<Play> elfTotals = new ArrayList<>();
+    private static final ArrayList<Play> elfTotals = new ArrayList<>();
 
     public static void main(String[] args) {
         readData(elfTotals, "data/day02.txt");
@@ -74,34 +70,31 @@ public class Day02 {
         // DRAW = 3
         // WIN = 6
         if (play.firstPlayer == 1) { // PLAYS ROCK
-            if (play.responsePlayer == 1) return 3 + 0; // LOSE WITH SCISSORS
-            if (play.responsePlayer == 2) return 1 + 3; // DRAW WITH ROCK
-            if (play.responsePlayer == 3) return 2 + 6; // WIN WITH PAPER
+            if (play.responsePlayer == Played.ROCK.value) return Played.SCISSORS.value + Result.LOSE.value; // LOSE WITH SCISSORS
+            if (play.responsePlayer == Played.PAPER.value) return Played.ROCK.value + Result.DRAW.value; // DRAW WITH ROCK
+            if (play.responsePlayer == Played.SCISSORS.value) return Played.PAPER.value + Result.WIN.value; // WIN WITH PAPER
         }
         if (play.firstPlayer == 2) { // PLAYS PAPER
-            if (play.responsePlayer == 1) return 1 + 0; // LOSE WITH ROCK
-            if (play.responsePlayer == 2) return 2 + 3; // DRAW WITH PAPER
-            if (play.responsePlayer == 3) return 3 + 6; // WIN WITH SCISSORS
+            if (play.responsePlayer == Played.ROCK.value) return Played.ROCK.value + Result.LOSE.value; // LOSE WITH ROCK
+            if (play.responsePlayer == Played.PAPER.value) return Played.PAPER.value + Result.DRAW.value; // DRAW WITH PAPER
+            if (play.responsePlayer == Played.SCISSORS.value) return Played.SCISSORS.value + Result.WIN.value; // WIN WITH SCISSORS
         }
         if (play.firstPlayer == 3) { // PLAYS SCISSORS
-            if (play.responsePlayer == 1) return 2 + 0; // LOSE WITH PAPER
-            if (play.responsePlayer == 2) return 3 + 3; // DRAW WITH SCISSORS
-            if (play.responsePlayer == 3) return 1 + 6; // WIN WITH ROCK
+            if (play.responsePlayer == Played.ROCK.value) return Played.PAPER.value + Result.LOSE.value; // LOSE WITH PAPER
+            if (play.responsePlayer == Played.PAPER.value) return Played.SCISSORS.value + Result.DRAW.value; // DRAW WITH SCISSORS
+            if (play.responsePlayer == Played.SCISSORS.value) return Played.ROCK.value + Result.WIN.value; // WIN WITH ROCK
         }
         return 999;
     }
 
     private static int outcome(int first, int response) {
         if (first == response) return 3;
-        if ((response==1 && first==3) || (response==3 && first==2) || (response==2 && first==1)) return 6;
+        if ((response==Played.ROCK.value && first==Played.SCISSORS.value)
+                || (response==Played.SCISSORS.value && first==Played.PAPER.value)
+                || (response==Played.PAPER.value && first==Played.ROCK.value)) return 6;
         return 0;
     }
 
-    private static int outcome2(int first, int response) {
-        if (response == 1) return 0; // lose
-        if (response == 2) return 3; // draw
-        return 6; // win
-    }
     public static class Play {
 
         private int firstPlayer;

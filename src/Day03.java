@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Day03 {
 
-    private static void readfile(String filename) {
+    private static void readFile(String filename) {
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Hashtable<Character, Integer> hsh_alphabet =  new Hashtable();
         ArrayList<String> threeElves = new ArrayList<>();
@@ -42,11 +42,11 @@ public class Day03 {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String filename = "data/day03.txt";
         if (args.length > 0) {
             filename = args[0];
         }
-        readfile(filename);
+        readFile(filename);
     }
 }

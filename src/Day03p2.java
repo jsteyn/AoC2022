@@ -45,7 +45,7 @@ public class Day03p2 {
         return false;
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String filename = "data/day03.txt";
         if (args.length > 0) {
             filename = args[0];
