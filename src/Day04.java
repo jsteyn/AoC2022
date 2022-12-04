@@ -15,15 +15,12 @@ public class Day04 {
                 String range1 = st.nextToken();
                 String range2 = st.nextToken();
                 st = new StringTokenizer(range1, "-");
-                int range1_from = Integer.valueOf(st.nextToken());
-                int range1_to = Integer.valueOf(st.nextToken());
+                int range1_min = Integer.valueOf(st.nextToken());
+                int range1_max = Integer.valueOf(st.nextToken());
                 st = new StringTokenizer(range2, "-");
-                int range2_from = Integer.valueOf(st.nextToken());
-                int range2_to = Integer.valueOf(st.nextToken());
-                if (range2_from >= range1_from && range2_to <= range1_to) {
-                    counter++;
-                    System.out.println("Overlap " + line);
-                } else if (range1_from >= range2_from && range1_to <= range2_to) {
+                int range2_min = Integer.valueOf(st.nextToken());
+                int range2_max = Integer.valueOf(st.nextToken());
+                if (range2_min >= range1_min && range2_max <= range1_max || range1_min >= range2_min && range1_max <= range2_max) {
                     counter++;
                     System.out.println("Overlap " + line);
                 }
