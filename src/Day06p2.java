@@ -23,14 +23,13 @@ public class Day06p2 {
                             break;
                         }
                     }
-                    if (duplicate) {
-                        duplicate = false;
-                        System.out.println(" duplicate " + (i + (tokensize + 1)));
-                        break;
-                    }
-                }
-                if (!duplicate) break;
 
+                }
+                if (duplicate) {
+                    duplicate = false;
+                    System.out.print(" duplicate\n" + (i + (tokensize + 1)) + " ");
+                    ;
+                } else break;
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
