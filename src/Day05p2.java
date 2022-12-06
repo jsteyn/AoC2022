@@ -1,9 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
-public class Day05 {
+public class Day05p2 {
 
     private static void readFile(String filename) {
         ArrayList<String> all_lines = new ArrayList<>();
@@ -45,21 +46,24 @@ public class Day05 {
             System.out.println("Number or stacks: " + number_of_stacks);
             print(stacks);
 
+            // TODO: there is still a bug number_of_stack + 1 for test file
             for (int instruction = number_of_stacks; instruction < all_lines.size(); instruction++) {
                 String line = all_lines.get(instruction);
                 String[] tokens = line.split(" ");
+                System.out.println(line);
                 int move = Integer.parseInt(tokens[1]);
                 int from = Integer.parseInt(tokens[3]) - 1;
                 int to = Integer.parseInt(tokens[5]) - 1;
-                System.out.println("Move " + move + " from " + from + " to " + to);
+                ArrayList<Character> tmp_stack = new ArrayList<>();
+                ArrayList<Character> stack_to = stacks.get(to);
+                ArrayList<Character> stack_from = stacks.get(from);
                 for (int m = 0; m < move; m++) {
-                    ArrayList<Character> stack_from = stacks.get(from);
-                    ArrayList<Character> stack_to = stacks.get(to);
-                    // thing to pop
-                    char b = stack_from.remove(stack_from.size() - 1);
-                    //push
-                    stack_to.add(b);
+                    tmp_stack.add(stack_from.remove(stack_from.size() - 1));
                 }
+                while (!tmp_stack.isEmpty()) {
+                    stack_to.add(tmp_stack.remove(tmp_stack.size() - 1));
+                }
+                print(stacks);
             }
             print(stacks);
 
@@ -76,12 +80,16 @@ public class Day05 {
             }
             System.out.println();
         }
+        System.out.println("Top boxes:");
         for (int stack = 0; stack < stacks.size(); stack++) {
-            System.out.print(stacks.get(stack).get(stacks.get(stack).size() - 1));
+            ArrayList<Character> s = stacks.get(stack);
+            System.out.print(s.isEmpty() ? " " : s.get(s.size() - 1));
         }
+        System.out.println();
     }
     public static void main(String[] args) {
         String filename = "data/day05.txt";
+        // TODO: there is still a bug number_of_stack + 1 for test file
 //        filename = "data/day05_test.txt";
         if (args.length > 0) filename = args[0];
         readFile(filename);
